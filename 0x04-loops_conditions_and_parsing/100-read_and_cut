@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Displays username, user ID, and home directory path for each user in /etc/passwd.
+
+input="/etc/passwd"
+while IFS= read -r line
+do
+    echo "$line" | cut -d':' --fields=1,3,6
+done < "$input"
