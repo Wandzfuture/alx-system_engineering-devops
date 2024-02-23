@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+#
+# Manage the 'manage_my_process' daemon
+#
+# This script provides functionality to manage a daemon process named 'manage_my_process'.
+# It allows starting, stopping, and restarting the daemon, and keeps track of its PID
+# using a PID file (/var/run/my_process.pid).
+#
+# Functions:
+#   - start(): Starts the daemon in the background and saves its PID to the PID file.
+#   - stop(): Stops the daemon by killing its PID and removes the PID file.
+#   - restart(): Restarts the daemon by stopping and then starting it.
+#
+# Usage:
+#   ./script_name.sh {start|stop|restart}
+#
+# Example usage:
+#   ./script_name.sh start - Starts the daemon.
+#   ./script_name.sh stop - Stops the daemon.
+#   ./script_name.sh restart - Restarts the daemon.
+
+# Path to the script to manage
+SCRIPT_PATH="/path/to/manage_my_process"
+
+start_process() {
+  if [ ! -f /var/run/my_process.pid ]; then
+    nohup ${SCRIPT_PATH} >/dev/null 2>&1 &
+    echo $! > /var/run/my_process.pid
+    echo "manage_my_process started"
+  else
+    echo "manage_my_process is already running"
+  fi
+}
+
+stop_process() {
+  if [ -f /var/run/my_process.pid ]; then
+    pid=$(cat /var/run/my_process.pid)
+    kill ${pid}
+    rm /var/run/my_process.pid
+    echo "manage_my_process stopped"
+  else
+    echo "manage_my_process is not running"
+  fi
+}
+
+restart_process() {
+  stop_process
+  start_process
+  echo "manage_my_process restarted"
+}
+
+case "$1" in
+  start)
+    start_process
+    ;;
+  stop)
+    stop_process
+    ;;
+  restart)
+    restart_process
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0

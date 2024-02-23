@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Does the following:
+#   Create a file /var/run/myscript.pid containing the script PID.
+
+# Function to handle signals
+signal_handler() {
+    case $1 in
+        SIGTERM)
+            echo "I hate the kill command"
+            ;;
+        SIGINT)
+            echo "Y U no love me?!"
+            ;;
+        SIGQUIT)
+            echo "Deleting PID file and terminating"
+            rm -f /var/run/myscript.pid
+            exit
+            ;;
+    esac
+}
+
+trap 'signal_handler SIGTERM' SIGTERM
+trap 'signal_handler SIGINT' SIGINT
+trap 'signal_handler SIGQUIT' SIGQUIT
+
+echo $$ > /var/run/myscript.pid
+
+while true; do
+    echo "To infinity and beyond"
+    sleep 1
+done
