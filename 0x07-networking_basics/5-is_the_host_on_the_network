@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Script to ping an IP address five times and check if the host is on the network.
+# Usage: 5-is_the_host_on_the_network {IP_ADDRESS}
+# Example: 5-is_the_host_on_the_network 192.168.1.1
+# Note: Requires a valid IPv4 address as an argument.
+# Improvements: Added error handling for invalid IP addresses and clearer feedback messages.
+
+if [ "$#" -eq 0 ]; then
+  echo "Usage: 5-is_the_host_on_the_network {IP_ADDRESS}"
+  exit 1
+fi
+
+if ! [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+  echo "Error: Invalid IP address format"
+  exit 1
+fi
+
+ping -c 5 -W 5 "$1"
