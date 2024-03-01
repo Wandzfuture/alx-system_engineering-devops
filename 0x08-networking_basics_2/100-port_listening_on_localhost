@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 # Listen on port 98 on localhost
-nc -l -p 98 -c "while read line; do echo $line; done"
+nc -l -p 98 -c "while read line; do echo \$line; done"
