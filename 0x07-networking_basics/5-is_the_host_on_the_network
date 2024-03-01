@@ -5,14 +5,9 @@
 # Note: Requires a valid IPv4 address as an argument.
 # Improvements: Added error handling for invalid IP addresses and clearer feedback messages.
 
-if [ "$#" -eq 0 ]; then
-  echo "Usage: 5-is_the_host_on_the_network {IP_ADDRESS}"
-  exit 1
+if [ "$#" -lt "1" ]
+then
+    echo "Usage: 5-is_the_host_on_the_network {IP_ADDRESS}"
+else
+    ping "$1" -c 5
 fi
-
-if ! [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-  echo "Error: Invalid IP address format"
-  exit 1
-fi
-
-ping -c 5 -W 5 "$1"
