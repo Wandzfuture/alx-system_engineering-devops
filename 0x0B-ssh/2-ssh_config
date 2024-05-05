@@ -1,0 +1,5 @@
+# SSH configuration file for the local SSH client
+Host *
+  IdentityFile ~/.ssh/school
+  ChallengeResponseAuthentication no
+  PasswordAuthentication no

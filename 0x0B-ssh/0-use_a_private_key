@@ -1,0 +1,4 @@
+#!/bin/bash
+# This is  a Bash script that uses ssh to connect,
+# To a server using a private key
+ssh -i ~/.ssh/school ubuntu@server01
