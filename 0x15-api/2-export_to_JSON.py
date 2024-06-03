@@ -21,17 +21,15 @@ def get_employee_todo_list_progress(employee_id):
         A list of tasks owned by the employee.
     """
     try:
-        employee_url = "{}users/{}".format(REST_API, employee_id)
-        response = requests.get(
-            employee_url, headers={"Accept": "application/json"}
-        )
+        employee_url = f"{REST_API}/users/{employee_id}"
+        response = requests.get(employee_url,
+                                headers={"Accept": "application/json"})
         response.raise_for_status()
         employee_data = response.json()
 
-        todos_url = "{}todos".format(REST_API)
-        response = requests.get(
-            todos_url, headers={"Accept": "application/json"}
-        )
+        todos_url = f"{REST_API}/todos"
+        response = requests.get(todos_url,
+                                headers={"Accept": "application/json"})
         response.raise_for_status()
         task_data = response.json()
 
@@ -39,7 +37,7 @@ def get_employee_todo_list_progress(employee_id):
 
         return tasks, employee_data["username"]
     except requests.RequestException as e:
-        print("Error: {}".format(e))
+        print(f"Error: {e}")
         return None, None
 
 
@@ -51,20 +49,18 @@ if __name__ == '__main__':
             data = {
                 str(employee_id): [
                     {
+                        "username": username,
                         "task": task["title"],
-                        "completed": task["completed"],
-                        "username": username
+                        "completed": task["completed"]
                     }
                     for task in tasks
                 ]
             }
-            with open(
-                "{}.json".format(employee_id), "w"
-            ) as jsonfile:
+            with open(f"{employee_id}.json", "w") as jsonfile:
                 json.dump(data, jsonfile, indent=4)
-            print("Data exported to {}.json".format(employee_id))
+            print(f"Data exported to {employee_id}.json")
         else:
-            print("No data found for employee ID {}".format(employee_id))
+            print(f"No data found for employee ID {employee_id}")
     else:
         print("Usage: python3 2-export_to_JSON.py <employee_id>")
         sys.exit(1)
