@@ -3,8 +3,8 @@
 Export employee data to JSON
 '''
 
-import requests
 import json
+import requests
 import sys
 
 REST_API = "https://jsonplaceholder.typicode.com"

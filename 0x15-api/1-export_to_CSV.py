@@ -3,8 +3,8 @@
 Export employee data to CSV
 '''
 
-import requests
 import csv
+import requests
 import sys
 
 
