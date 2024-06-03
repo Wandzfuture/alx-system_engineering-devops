@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-'''
+"""
 Export employee data to JSON
-'''
+"""
 
 import json
 import requests

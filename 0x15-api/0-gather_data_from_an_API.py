@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-gather employee data from API
+Gather employee data from API
 """
 
 import requests
@@ -33,10 +33,10 @@ def get_employee_todo_list_progress(employee_id):
         tasks = [task for task in task_data if task["userId"] == employee_id]
         completed_tasks = [task for task in tasks if task["completed"]]
 
-        output = "Employee {} is done with tasks({}/{})".format(
+        output = "Employee {} is done with tasks({}/{}):".format(
             employee_data["name"], len(completed_tasks), len(tasks))
         for task in completed_tasks:
-            output += "\n\t{}".format(task["title"])
+            output += "\n\t {}".format(task["title"])
 
         return output
     except requests.RequestException as e:
