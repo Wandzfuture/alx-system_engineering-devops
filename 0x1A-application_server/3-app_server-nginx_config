@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+#configures Nginx to proxy HTTP requests to the specified route listening on port 5001
+
 server {
                 listen 80 default_server;
 location /hbnb_static { alias /data/web_static/current/;}

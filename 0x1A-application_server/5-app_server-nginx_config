@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+#Gunicorn instance serves content from web_dynamic/2-hbnb.py on port 5003
+
 server {
                 listen 80 default_server;
 location /hbnb_static { alias /data/web_static/current/;}
